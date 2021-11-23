@@ -5,36 +5,29 @@ using System.Text;
 using System.Threading.Tasks;
 namespace SingletonDemo
 {
-    public class Singleton
+
+    public sealed class Singleton
     {
         private static int counter = 0;
-        private static object obj = new object();
 
         private Singleton()
         {
             counter++;
             Console.WriteLine("Counter Value " + counter.ToString());
         }
-        private static Singleton instance = null;
+        private static readonly Lazy<Singleton> instance = new Lazy<Singleton>(() => new Singleton());
 
         public static Singleton GetInstance
         {
             get
             {
-                if (instance == null)
-                    instance = new Singleton();
-                return instance;
+                return instance.Value;
             }
         }
 
         public void PrintDetails(string message)
         {
             Console.WriteLine(message);
-        }
-
-        public class DerivedSingleton : Singleton
-        {
-
         }
     }
 }

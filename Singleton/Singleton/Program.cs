@@ -9,14 +9,10 @@ namespace SingletonDemo
     {
         static void Main(string[] args)
         {
-            PrintStudentDetails();
-            PrintEmployeeDetails();
-
-            Console.WriteLine("-------------------------------------");
-
-            Singleton.DerivedSingleton derivedObj = new Singleton.DerivedSingleton();
-            derivedObj.PrintDetails("From Derived");
-
+            Parallel.Invoke(
+                () => PrintStudentDetails(),
+                () => PrintEmployeeDetails()
+            );
             Console.ReadLine();
         }
 
